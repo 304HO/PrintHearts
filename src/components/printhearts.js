@@ -66,6 +66,7 @@ export default Main;
 const UserControlPanel = styled.div`
   display: flex;
   gap: 10px;
+  padding-bottom: 15px;
 `;
 
 const Title = styled.h1`
