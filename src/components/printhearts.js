@@ -6,27 +6,30 @@ const Main = () => {
   const [heartsArr, setHeartsArr] = useState([]);
 
   const inputHandler = (e) => {
-    // 엄격한 양수, 음수 구분을 위해 Number()
+    // 양수, 음수 엄격한 구분을 위해 Number()
     setInputCount(Number(e.target.value));
   };
 
   const PrintHearts = (count) => {
     let heartsArr = [];
     const heart = "❤️";
-    // inputCount 양수일때
-    if (inputCount > 0) {
+    // input value 양수
+    if (inputCount >= 0) {
       for (let i = 1; i <= count; i++) {
         heartsArr.push(heart.repeat(i));
         console.log(heart.repeat(i));
       }
       setHeartsArr(heartsArr);
-      // inputCount 음수일때
+      // input value 음수
     } else if (inputCount < 0) {
       for (let i = Math.abs(inputCount); i >= 1; i--) {
         heartsArr.push(heart.repeat(i));
         console.log(heart.repeat(i));
       }
       setHeartsArr(heartsArr);
+      // 양수도 음수도 아닐때
+    } else {
+      alert("ENTER NUMBER!!");
     }
   };
 
@@ -40,14 +43,15 @@ const Main = () => {
   return (
     <RootContainer>
       <Title>PrintHearts</Title>
-      <div>
+      <UserControlPanel>
         <input
           placeholder="COUNT NUMBER"
           onChange={inputHandler}
           onKeyUp={enterkey}
-        />
+          autoFocus
+        ></input>
         <button onClick={() => PrintHearts(inputCount)}>Print ❤️</button>
-      </div>
+      </UserControlPanel>
       <div>
         {heartsArr.map((el, idx) => {
           return <div key={idx}>{el}</div>;
@@ -58,6 +62,11 @@ const Main = () => {
 };
 
 export default Main;
+
+const UserControlPanel = styled.div`
+  display: flex;
+  gap: 10px;
+`;
 
 const Title = styled.h1`
   border-bottom: 1px solid grey;
